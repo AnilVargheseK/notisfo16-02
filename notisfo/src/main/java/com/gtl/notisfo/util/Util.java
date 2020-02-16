@@ -9,29 +9,8 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Util {
 
-    private static Util util = new Util();
+    public static String getNonce() throws Exception {
 
-    public static Util getinstance() {
-        if (util == null) {
-            util = new Util();
-        }
-        return util;
-    }
-
-    private String nonce1;
-
-    public String getNonce1() {
-        System.out.println("nonce ->" + nonce1);
-        return nonce1;
-    }
-
-    public void setNonce1(String nonce1) {
-        this.nonce1 = nonce1;
-    }
-
-    public String getNonce() throws Exception {
-
-        // Generate Date
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmssSSS");
         String strDate = formatter.format(date);
@@ -50,12 +29,7 @@ public class Util {
         String nonce = strDate + ":" + num;
         String noncebase64 = new String(Base64.encodeBase64(nonce.getBytes()));
         System.out.println("Base64 encoded Nonce : " + noncebase64);
-//        Util u = new Util();
-//        u.setNonce1(noncebase64);
-        Noncegen n = new Noncegen(noncebase64);
 
-        System.out.println("getNonce1 : " + n.getNonce1());
-        nonce1 = noncebase64;
         return noncebase64;
     }
 
@@ -70,9 +44,7 @@ public class Util {
         return authorization;
     }
 
-    public static String getInqAuthorization() throws Exception {
-        TokenService ts = new TokenService();
-        String accessToken = ts.login();
+    public static String getInqAuthorization(String accessToken) throws Exception {
         System.out.println("Access Token  :  " + accessToken);
         String authorization = "Bearer " + accessToken;
         System.out.println("Authorization : " + authorization);

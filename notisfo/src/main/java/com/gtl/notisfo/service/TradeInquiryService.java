@@ -17,10 +17,10 @@ public class TradeInquiryService {
     private static final String DATA_FORMAT = "CSV:CSV";
     private static final String VERSION = "1.0";
 
-    private static String getAllTradeData(String nonce) throws Exception {
+    private static String getAllTradeData(String nonce, String accessToken) throws Exception {
 
-        String authorization = Util.getInqAuthorization();
-
+        String authorization = Util.getInqAuthorization(accessToken);
+        
         System.out.println(nonce + "<- nonce");
 
         String postData = TradeInquiryService.getAllTradeRequestData();
@@ -86,9 +86,9 @@ public class TradeInquiryService {
         return j.toString();
     }
     
-    public static String getTradeRes() throws IOException, SQLException, Exception {
+    public String getTradeRes(String nonce, String accessToekn) throws IOException, SQLException, Exception {
 
-        String json = getAllTradeData(Util.getinstance().getNonce1());
+        String json = getAllTradeData(nonce, accessToekn);
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(json);

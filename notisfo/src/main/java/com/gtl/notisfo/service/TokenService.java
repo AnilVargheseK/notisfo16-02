@@ -22,10 +22,9 @@ public class TokenService {
 
     private static final String GRANT_TYPE_URL_DATA = "grant_type=client_credentials";
 
-    public String login() throws IOException, Exception {
+    public String login(String nonce) throws IOException, Exception {
 
         String authorization = Util.getTokenAuthorization();
-        String nonce = Util.getinstance().getNonce();
 
         String tokenRequestHost = "www.devconnect2nse.com";
         String tokenRequestEndpoint = "/token";

@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class FileReadWrite {
 
-    ////////// TradeInq SeqNum
     TradeStructure t = new TradeStructure();
 
     public String seqNumWrite(String seqNo) {

@@ -4,6 +4,7 @@ import com.gtl.notisfo.bean.TradeStructure;
 import com.gtl.notisfo.service.TokenService;
 import com.gtl.notisfo.service.TradeInquiryService;
 import com.gtl.notisfo.util.FileReadWrite;
+import com.gtl.notisfo.util.Util;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -208,14 +209,15 @@ public class NotisFO extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_totalSellValueActionPerformed
 
+    private static TokenService tokenService;
+    private static TradeInquiryService inquiryService;
     private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
         // TODO add your handling code here:
-
+        
         try {
-            TokenService token = new TokenService();
-            token.login();
-
-            String details = TradeInquiryService.getTradeRes();
+            String nonce=Util.getNonce();
+            String accessToken = tokenService.login(nonce);
+            String details = inquiryService.getTradeRes(nonce, accessToken);
 
             System.out.println("tradesInquiry: " + details);
             String ctrlRec = details.split("\\^")[0];
@@ -324,6 +326,8 @@ public class NotisFO extends javax.swing.JFrame {
     }//GEN-LAST:event_RefreshMouseClicked
 
     public static void main(String args[]) {
+        tokenService = new TokenService();
+        inquiryService=new TradeInquiryService();
 //    public void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
